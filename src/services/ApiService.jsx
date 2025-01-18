@@ -15,7 +15,7 @@ export default class ApiService {
     const res = await fetch('https://api.themoviedb.org/3/search/movie?query=return&include_adult=false&language=en-US&page=1', options)
 
     if (!res.ok) {
-      throw new Error(`Could not fetch`)
+      throw new Error('Could not fetch')
     }
 
     return await res.json() 
