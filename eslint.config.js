@@ -3,9 +3,9 @@ import globals from 'globals'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
-import eslintConfigPrettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
-import babelParser from '@babel/eslint-parser';
+import eslintConfigPrettier from 'eslint-config-prettier'
+import importPlugin from 'eslint-plugin-import'
+import babelParser from '@babel/eslint-parser'
 
 export default [
   { ignores:  ['node_modules', 'dist', 'build']},
@@ -14,7 +14,7 @@ export default [
     languageOptions: {
       ecmaVersion: 12,
       globals: globals.browser,
-     parser: babelParser,
+      parser: babelParser,
       parserOptions: {
         requireConfigFile: false,
         ecmaVersion: 'latest',
@@ -32,7 +32,7 @@ export default [
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-        import: importPlugin,
+      import: importPlugin,
       eslintConfigPrettier,
     },
     rules: {
