@@ -1,4 +1,6 @@
 import './MovieList.css'
+import {Space} from 'antd'
+
 import MovieCard from '../MovieCard'
 
 function MovieList({movies}) {
@@ -16,7 +18,7 @@ function MovieList({movies}) {
     )
   })
 
-  return <ul className='movies-list'>{elements}</ul>
+  return <ul className='movies-list'><Space wrap size='small' align='start'>{elements}</Space></ul>
 }
 
 export default MovieList

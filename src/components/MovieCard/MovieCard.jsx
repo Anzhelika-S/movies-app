@@ -1,21 +1,51 @@
 import './MovieCard.css'
-import {Card} from 'antd'
+import {Card, ConfigProvider} from 'antd'
+import { format } from 'date-fns'
 
 function MovieCard(props) {
 
   const {id, overview, poster, releaseDate, title} = props
+  
+  const addPoster = () => {
+
+    if (!poster) {
+      return 'https://movienewsletters.net/photos/000000H1.jpg'
+    } else {
+      return `https://image.tmdb.org/t/p/w185/${poster}` 
+    }
+    
+  }
+
+  const formatDate = () => {
+    try {
+      const movieDate = new Date(releaseDate.split('-').join(', '))
+      return format(movieDate, 'PP')
+    } catch {
+      return 'N/A'
+    }
+  }
     
   return (
     <li id={id} className='card-item'>
-        <Card style={{width: 450}}  hoverable >
-            <img src={`https://image.tmdb.org/t/p/w185/${poster}`} alt="Poster" className='movie-poster' />
-            <div>
-                <h3>{title}</h3>
-                <div>{releaseDate}</div>
-                <div>Action, Drama</div>
-                <div>{overview}</div>
-            </div>
+      <ConfigProvider
+        theme={{
+          components: {
+            Card: {
+              bodyPaddingSM: 0,
+            },
+          },
+        }}
+      >
+        <Card style={{width: 450, height: 280}} size='small' hoverable >
+          <img src={addPoster()} alt="Poster" className='movie-poster' />
+          <div>
+            <h3>{title}</h3>
+            <div>{formatDate()}</div>
+            <div>Action, Drama</div>
+            <div>{overview}</div>
+          </div>
         </Card>
+      </ConfigProvider>
     </li>
   )
     

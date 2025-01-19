@@ -8,12 +8,12 @@ import MovieSearch from './components/MovieSearch'
 export default class App extends Component {
   api = new ApiService()
 
-  state = {
-    movies: []
-  }
-
   constructor() {
     super()
+    this.state = {
+      movies: []
+    }
+
     this.updateList()
   }
 
@@ -22,7 +22,8 @@ export default class App extends Component {
   }
 
   updateList() {
-    this.api.getApi().then(this.onListLoaded)
+    this.api.getApi()
+      .then(this.onListLoaded)
   }
 
 
