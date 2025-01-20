@@ -1,42 +1,38 @@
-import './App.css'
-import { Component } from 'react'
+import "./App.css";
+import { Component } from "react";
 
-import ApiService from './services/ApiService'
-import MovieList from './components/MovieList'
-import MovieSearch from './components/MovieSearch'
+import ApiService from "./services/ApiService";
+import MovieList from "./components/MovieList";
+import MovieSearch from "./components/MovieSearch";
 
 export default class App extends Component {
-  api = new ApiService()
+  api = new ApiService();
 
   constructor() {
-    super()
+    super();
     this.state = {
-      movies: []
-    }
+      movies: [],
+    };
 
-    this.updateList()
+    this.updateList();
   }
 
   onListLoaded = (list) => {
-    this.setState({movies: list.results})        
-  }
+    this.setState({ movies: list.results });
+  };
 
   updateList() {
-    this.api.getApi()
-      .then(this.onListLoaded)
+    this.api.getApi().then(this.onListLoaded);
   }
 
-
   render() {
+    const { movies } = this.state;
 
-    const {movies} = this.state
-
-    return(
+    return (
       <>
         <MovieSearch />
         <MovieList movies={movies} />
       </>
-    )
-  }   
-    
+    );
+  }
 }

@@ -1,11 +1,11 @@
 .ant-card-body {
-    display: flex;
-    flex-direction: row
+  display: flex;
+  flex-direction: row;
 }
 
 .movie-poster {
-    height: 280px;
-    margin-right: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+  height: 280px;
+  margin-right: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
