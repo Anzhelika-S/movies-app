@@ -18,7 +18,11 @@ function MovieList({movies}) {
     )
   })
 
-  return <ul className='movies-list'><Space wrap size='small' align='start'>{elements}</Space></ul>
+  return <ul className='movies-list'>
+    <Space wrap size='small' align='center' className='space-list'>
+      {elements}
+    </Space>
+    </ul>
 }
 
 export default MovieList
