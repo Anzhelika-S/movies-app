@@ -1,11 +1,11 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import eslintConfigPrettier from 'eslint-config-prettier'
-import importPlugin from 'eslint-plugin-import'
-import babelParser from '@babel/eslint-parser'
+import js from '@eslint/js';
+import globals from 'globals';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import importPlugin from 'eslint-plugin-import';
+import babelParser from '@babel/eslint-parser';
 
 export default [
   { ignores: ['node_modules', 'dist', 'build'] },
@@ -55,7 +55,7 @@ export default [
           'newlines-between': 'always',
         },
       ],
-      "no-unused-vars": ["error", { "caughtErrors": "none" }]
+      'no-unused-vars': ['error', { caughtErrors: 'none' }],
     },
   },
-]
+];
