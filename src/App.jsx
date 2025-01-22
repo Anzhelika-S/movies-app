@@ -14,7 +14,7 @@ export default class App extends Component {
     this.state = {
       movies: [],
       loading: true,
-      error: null,
+      error: false,
     };
   }
 
@@ -28,7 +28,7 @@ export default class App extends Component {
       });
     } catch (error) {
       this.setState({
-        error: "Failed to fetch data. Please try again later.",
+        error: true,
         loading: false,
       });
     }
