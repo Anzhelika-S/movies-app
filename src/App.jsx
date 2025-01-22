@@ -9,14 +9,11 @@ import MovieSearch from './components/MovieSearch';
 export default class App extends Component {
   api = new ApiService();
 
-  constructor() {
-    super();
-    this.state = {
-      movies: [],
-      loading: true,
-      error: false,
-    };
-  }
+  state = {
+    movies: [],
+    loading: true,
+    error: false,
+  };
 
   updateList = async () => {
     this.setState({ loading: true, error: null });

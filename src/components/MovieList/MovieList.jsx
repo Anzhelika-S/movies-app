@@ -1,22 +1,14 @@
 import './MovieList.css';
+import { Component } from 'react';
 import { Space, Spin } from 'antd';
 
 import MovieCard from '../MovieCard';
 
-function MovieList({ movies, loading }) {
-  if (loading && movies.length === 0) {
-    return (
-      <Space wrap size={36} align="center" className="space-list">
-        <MovieCard loading={loading} movies={movies} />
-        <MovieCard loading={loading} movies={movies} />
-        <MovieCard loading={loading} movies={movies} />
-        <MovieCard loading={loading} movies={movies} />
-      </Space>
-    );
-  }
+export default class MovieList extends Component {
+  render() {
+    const { movies, loading } = this.props;
 
-  const elements = movies.map((movie) => {
-    return (
+    const elements = movies.map((movie) => (
       <MovieCard
         poster={movie.poster_path}
         key={movie.id}
@@ -25,16 +17,22 @@ function MovieList({ movies, loading }) {
         overview={movie.overview}
         releaseDate={movie.release_date}
       />
+    ));
+
+    return (
+      <>
+        {loading ? (
+          <ul className="movies-list">
+            <Spin size="large" fullscreen />
+          </ul>
+        ) : (
+          <ul className="movies-list">
+            <Space wrap size={36} align="center" className="space-list">
+              {elements}
+            </Space>
+          </ul>
+        )}
+      </>
     );
-  });
-
-  return (
-    <ul className="movies-list">
-      <Space wrap size={36} align="center" className="space-list">
-        {elements}
-      </Space>
-    </ul>
-  );
+  }
 }
-
-export default MovieList;

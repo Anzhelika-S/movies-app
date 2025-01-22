@@ -1,13 +1,59 @@
 import './MovieCard.css';
 import { Card, ConfigProvider, Spin } from 'antd';
 import { format } from 'date-fns';
+import { Component } from 'react';
 
-function MovieCard(props) {
-  const { id, overview, poster, releaseDate, title, loading, movies } = props;
+export default class MovieCard extends Component {
+  state = {
+    loading: true,
+  };
 
-  if (loading && movies.length === 0) {
+  componentDidMount() {
+    setTimeout(() => this.setState({ loading: false }), 1000);
+  }
+
+  addPoster = () => {
+    const { poster } = this.props;
+    return poster ? `https://image.tmdb.org/t/p/w185/${poster}` : 'https://movienewsletters.net/photos/000000H1.jpg';
+  };
+
+  formatDate = () => {
+    const { releaseDate } = this.props;
+    if (!releaseDate) return 'N/A';
+
+    try {
+      const movieDate = new Date(releaseDate);
+      return format(movieDate, 'PP');
+    } catch (error) {
+      console.error('Invalid release date format:', releaseDate, error);
+      return 'N/A';
+    }
+  };
+
+  shortenOverview = () => {
+    const { overview } = this.props;
+    if (!overview) return 'No overview available';
+    return overview.length > 230 ? `${overview.substring(0, overview.lastIndexOf(' ', 230))}...` : overview;
+  };
+
+  render() {
+    const { id, title } = this.props;
+    const { loading } = this.state;
+
+    const cardContent = (
+      <div className="movie-card-content">
+        <img src={this.addPoster()} alt={`${title} Poster`} className="movie-poster" />
+        <div className="movie-details">
+          <h3 className="movie-title">{title}</h3>
+          <div className="movie-release-date">{this.formatDate()}</div>
+          <div className="movie-genres">Action, Drama</div>
+          <div className="movie-overview">{this.shortenOverview()}</div>
+        </div>
+      </div>
+    );
+
     return (
-      <li className="card-item">
+      <li id={id} className="card-item">
         <ConfigProvider
           theme={{
             components: {
@@ -17,69 +63,17 @@ function MovieCard(props) {
             },
           }}
         >
-          <Card style={{ width: 450, height: 280, borderRadius: 0 }} size="small" hoverable className="card-loading">
-            <Spin size="large" />
+          <Card style={{ width: 450, height: 280, borderRadius: 0 }} size="small" hoverable>
+            {loading ? (
+              <div className="card-loading">
+                <Spin size="large" />
+              </div>
+            ) : (
+              cardContent
+            )}
           </Card>
         </ConfigProvider>
       </li>
     );
   }
-
-  const addPoster = () => {
-    if (!poster) {
-      return 'https://movienewsletters.net/photos/000000H1.jpg';
-    } else {
-      return `https://image.tmdb.org/t/p/w185/${poster}`;
-    }
-  };
-
-  const formatDate = () => {
-    try {
-      const movieDate = new Date(releaseDate.split('-').join(', '));
-      return format(movieDate, 'PP');
-    } catch {
-      return 'N/A';
-    }
-  };
-
-  const shortenOverview = () => {
-    if (overview && overview.length > 230) {
-      let str = overview.substr(0, overview.lastIndexOf(' ', 230));
-      return str + '...';
-    } else {
-      return overview || 'No overview available';
-    }
-  };
-
-  const cardContent = (
-    <>
-      <img src={addPoster()} alt="Poster" className="movie-poster" />
-      <div>
-        <h3>{title}</h3>
-        <div>{formatDate()}</div>
-        <div>Action, Drama</div>
-        <div>{shortenOverview()}</div>
-      </div>
-    </>
-  );
-
-  return (
-    <li id={id} className="card-item">
-      <ConfigProvider
-        theme={{
-          components: {
-            Card: {
-              bodyPaddingSM: 0,
-            },
-          },
-        }}
-      >
-        <Card style={{ width: 450, height: 280, borderRadius: 0 }} size="small" hoverable>
-          {cardContent}
-        </Card>
-      </ConfigProvider>
-    </li>
-  );
 }
-
-export default MovieCard;

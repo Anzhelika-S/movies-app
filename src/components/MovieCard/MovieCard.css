@@ -1,6 +1,7 @@
 .ant-card-body {
   display: flex;
   flex-direction: row;
+  height: 100%;
 }
 
 .movie-poster {
@@ -12,4 +13,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.movie-card-content {
+  display: flex;
 }
