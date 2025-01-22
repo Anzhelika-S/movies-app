@@ -22,8 +22,8 @@ export default class MovieList extends Component {
     return (
       <>
         {loading ? (
-          <ul className="movies-list">
-            <Spin size="large" fullscreen />
+          <ul className="movies-list movies-list-loading">
+            <Spin size="large" />
           </ul>
         ) : (
           <ul className="movies-list">

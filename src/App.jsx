@@ -15,15 +15,15 @@ export default class App extends Component {
     error: false,
   };
 
-  updateList = async () => {
+  updateList = async (value) => {
     this.setState({ loading: true, error: null });
     try {
-      const data = await this.api.getApi();
+      const data = await this.api.getApi(value);
       this.setState({
         movies: data.results,
         loading: false,
       });
-    } catch (error) {
+    } catch {
       this.setState({
         error: true,
         loading: false,
@@ -39,11 +39,11 @@ export default class App extends Component {
     const { movies, loading, error } = this.state;
 
     return (
-      <>
-        <MovieSearch />
+      <div className="app-container">
+        <MovieSearch updateList={this.updateList} />
         {error && <Alert message="Couldn't fetch data" type="error" showIcon className="error-message" />}
         <MovieList movies={movies} loading={loading} />
-      </>
+      </div>
     );
   }
 }
