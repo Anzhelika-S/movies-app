@@ -1,3 +1,3 @@
-import MovieSearch from './MovieSearch'
+import MovieSearch from "./MovieSearch";
 
-export default MovieSearch
+export default MovieSearch;
