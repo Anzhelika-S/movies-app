@@ -6,6 +6,10 @@
 .movie-poster {
   height: 280px;
   margin-right: 10px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+}
+
+.card-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
