@@ -1,6 +1,6 @@
-import "./MovieCard.css";
-import { Card, ConfigProvider, Spin } from "antd";
-import { format } from "date-fns";
+import './MovieCard.css';
+import { Card, ConfigProvider, Spin } from 'antd';
+import { format } from 'date-fns';
 
 function MovieCard(props) {
   const { id, overview, poster, releaseDate, title, loading, movies } = props;
@@ -17,12 +17,7 @@ function MovieCard(props) {
             },
           }}
         >
-          <Card
-            style={{ width: 450, height: 280, borderRadius: 0 }}
-            size="small"
-            hoverable
-            className="card-loading"
-          >
+          <Card style={{ width: 450, height: 280, borderRadius: 0 }} size="small" hoverable className="card-loading">
             <Spin size="large" />
           </Card>
         </ConfigProvider>
@@ -32,7 +27,7 @@ function MovieCard(props) {
 
   const addPoster = () => {
     if (!poster) {
-      return "https://movienewsletters.net/photos/000000H1.jpg";
+      return 'https://movienewsletters.net/photos/000000H1.jpg';
     } else {
       return `https://image.tmdb.org/t/p/w185/${poster}`;
     }
@@ -40,19 +35,19 @@ function MovieCard(props) {
 
   const formatDate = () => {
     try {
-      const movieDate = new Date(releaseDate.split("-").join(", "));
-      return format(movieDate, "PP");
+      const movieDate = new Date(releaseDate.split('-').join(', '));
+      return format(movieDate, 'PP');
     } catch {
-      return "N/A";
+      return 'N/A';
     }
   };
 
   const shortenOverview = () => {
     if (overview && overview.length > 230) {
-      let str = overview.substr(0, overview.lastIndexOf(" ", 230));
-      return str + "...";
+      let str = overview.substr(0, overview.lastIndexOf(' ', 230));
+      return str + '...';
     } else {
-      return overview || "No overview available";
+      return overview || 'No overview available';
     }
   };
 
@@ -79,11 +74,7 @@ function MovieCard(props) {
           },
         }}
       >
-        <Card
-          style={{ width: 450, height: 280, borderRadius: 0 }}
-          size="small"
-          hoverable
-        >
+        <Card style={{ width: 450, height: 280, borderRadius: 0 }} size="small" hoverable>
           {cardContent}
         </Card>
       </ConfigProvider>

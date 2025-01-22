@@ -1,4 +1,4 @@
-import "./MovieSearch.css";
+import './MovieSearch.css';
 
 function MovieSearch() {}
 

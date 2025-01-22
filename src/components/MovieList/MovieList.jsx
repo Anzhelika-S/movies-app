@@ -1,7 +1,7 @@
-import "./MovieList.css";
-import { Space, Spin } from "antd";
+import './MovieList.css';
+import { Space, Spin } from 'antd';
 
-import MovieCard from "../MovieCard";
+import MovieCard from '../MovieCard';
 
 function MovieList({ movies, loading }) {
   if (loading && movies.length === 0) {
