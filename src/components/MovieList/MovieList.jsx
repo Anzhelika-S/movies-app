@@ -1,6 +1,6 @@
 import './MovieList.css';
 import { Component } from 'react';
-import { Space, Spin } from 'antd';
+import { Space, Spin, Alert } from 'antd';
 
 import MovieCard from '../MovieCard';
 
@@ -8,16 +8,25 @@ export default class MovieList extends Component {
   render() {
     const { movies, loading } = this.props;
 
-    const elements = movies.map((movie) => (
-      <MovieCard
-        poster={movie.poster_path}
-        key={movie.id}
-        id={movie.id}
-        title={movie.title}
-        overview={movie.overview}
-        releaseDate={movie.release_date}
-      />
-    ));
+    const elements =
+      movies.length !== 0 ? (
+        movies.map((movie) => (
+          <MovieCard
+            poster={movie.poster_path}
+            key={movie.id}
+            id={movie.id}
+            title={movie.title}
+            overview={movie.overview}
+            releaseDate={movie.release_date}
+          />
+        ))
+      ) : (
+        <Alert
+          type="info"
+          message="Couldn't find anything..."
+          description="There aren't any movies with the following title. Please, try to search for another movie."
+        />
+      );
 
     return (
       <>

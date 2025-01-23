@@ -5,6 +5,7 @@ import { Alert } from 'antd';
 import ApiService from './services/ApiService';
 import MovieList from './components/MovieList';
 import MovieSearch from './components/MovieSearch';
+import MoviePagination from './MoviePagination/MoviePagination';
 
 export default class App extends Component {
   api = new ApiService();
@@ -13,15 +14,21 @@ export default class App extends Component {
     movies: [],
     loading: true,
     error: false,
+    value: '',
+    totalPages: 500,
   };
 
-  updateList = async (value) => {
+  updateList = async (value, page = 1) => {
     this.setState({ loading: true, error: null });
+
     try {
-      const data = await this.api.getApi(value);
+      const data = await this.api.getApi(value, page);
+
       this.setState({
+        value: value,
         movies: data.results,
         loading: false,
+        totalPages: data.total_pages,
       });
     } catch {
       this.setState({
@@ -36,13 +43,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { movies, loading, error } = this.state;
+    const { movies, loading, error, value, totalPages } = this.state;
 
     return (
       <div className="app-container">
         <MovieSearch updateList={this.updateList} />
         {error && <Alert message="Couldn't fetch data" type="error" showIcon className="error-message" />}
         <MovieList movies={movies} loading={loading} />
+        <MoviePagination updateList={this.updateList} value={value} totalPages={totalPages} />
       </div>
     );
   }
