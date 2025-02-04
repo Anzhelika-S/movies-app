@@ -1,12 +1,11 @@
 import './App.css';
 import { Component } from 'react';
-import { Alert } from 'antd';
+import { Alert, Tabs } from 'antd';
 
 import ApiService from './services/ApiService';
 import MovieList from './components/MovieList';
 import MovieSearch from './components/MovieSearch';
 import MoviePagination from './MoviePagination/MoviePagination';
-import AppTabs from './components/Tabs';
 
 export default class App extends Component {
   api = new ApiService();
@@ -68,7 +67,7 @@ export default class App extends Component {
 
     return (
       <div className="app-container">
-        <AppTabs items={items} />
+        <Tabs animated centered destroyInactiveTabPane={true} items={items} />
       </div>
     );
   }

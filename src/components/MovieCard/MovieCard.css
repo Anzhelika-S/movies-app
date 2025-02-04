@@ -20,3 +20,50 @@
 .movie-card-content {
   display: flex;
 }
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  
+  padding: 10px;
+  position: relative;
+}
+
+.movie-title {
+  margin: 0;
+  width: 70%;
+}
+
+.movie-rating {
+  margin-top: auto;
+}
+
+.movie-vote {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.movie-vote.red {
+  border-color: #E90000;
+}
+
+.movie-vote.orange {
+  border-color: #E97E00;
+}
+
+.movie-vote.yellow {
+  border-color: #E9D100;
+}
+
+.movie-vote.green {
+  border-color: #66E900;
+}

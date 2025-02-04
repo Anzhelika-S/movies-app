@@ -19,3 +19,8 @@ body {
   margin: 50px auto;
   font-size: 50px;
 }
+
+.ant-tabs-tabpane {
+  display: flex;
+  flex-direction: column;
+}

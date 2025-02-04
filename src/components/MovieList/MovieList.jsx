@@ -18,6 +18,7 @@ export default class MovieList extends Component {
             title={movie.title}
             overview={movie.overview}
             releaseDate={movie.release_date}
+            vote={movie.vote_average}
           />
         ))
       ) : (
