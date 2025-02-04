@@ -6,6 +6,7 @@ import ApiService from './services/ApiService';
 import MovieList from './components/MovieList';
 import MovieSearch from './components/MovieSearch';
 import MoviePagination from './MoviePagination/MoviePagination';
+import AppTabs from './components/Tabs';
 
 export default class App extends Component {
   api = new ApiService();
@@ -45,12 +46,29 @@ export default class App extends Component {
   render() {
     const { movies, loading, error, value, totalPages } = this.state;
 
+    const items = [
+      {
+        key: 1,
+        label: 'Search',
+        children: (
+          <>
+            <MovieSearch updateList={this.updateList} />
+            {error && <Alert message="Couldn't fetch data" type="error" showIcon className="error-message" />}
+            <MovieList movies={movies} loading={loading} />
+            <MoviePagination updateList={this.updateList} value={value} totalPages={totalPages} />
+          </>
+        ),
+      },
+      {
+        key: 2,
+        label: 'Rated',
+        children: <>Rated movies here</>,
+      },
+    ];
+
     return (
       <div className="app-container">
-        <MovieSearch updateList={this.updateList} />
-        {error && <Alert message="Couldn't fetch data" type="error" showIcon className="error-message" />}
-        <MovieList movies={movies} loading={loading} />
-        <MoviePagination updateList={this.updateList} value={value} totalPages={totalPages} />
+        <AppTabs items={items} />
       </div>
     );
   }

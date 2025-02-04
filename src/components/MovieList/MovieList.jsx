@@ -1,6 +1,6 @@
 import './MovieList.css';
 import { Component } from 'react';
-import { Space, Spin, Alert } from 'antd';
+import { Space, Skeleton, Alert } from 'antd';
 
 import MovieCard from '../MovieCard';
 
@@ -24,7 +24,7 @@ export default class MovieList extends Component {
         <Alert
           type="info"
           message="Couldn't find anything..."
-          description="There aren't any movies with the following title. Please, try to search for another movie."
+          description="There aren't any movies with the following title. Please, try searching for another movie."
         />
       );
 
@@ -32,7 +32,7 @@ export default class MovieList extends Component {
       <>
         {loading ? (
           <ul className="movies-list movies-list-loading">
-            <Spin size="large" />
+            <Skeleton active />
           </ul>
         ) : (
           <ul className="movies-list">
