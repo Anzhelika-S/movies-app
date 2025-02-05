@@ -19,6 +19,7 @@ export default class MovieList extends Component {
             overview={movie.overview}
             releaseDate={movie.release_date}
             vote={movie.vote_average}
+            // genres={movie.genres.map((genre) => genre.name)}
           />
         ))
       ) : (

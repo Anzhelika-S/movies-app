@@ -29,4 +29,22 @@ export default class ApiService {
 
     return await res.json();
   }
+
+  async getMovieDetails(id) {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${this._apiToken}`,
+      },
+    };
+
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options);
+
+    if (!res.ok) {
+      throw new Error('Could not fetch');
+    }
+
+    return await res.json();
+  }
 }

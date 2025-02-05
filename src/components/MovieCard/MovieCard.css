@@ -24,14 +24,17 @@
 .movie-details {
   display: flex;
   flex-direction: column;
-  
+  gap: 5px;
+
   padding: 10px;
   position: relative;
+  font-size: 12px;
 }
 
 .movie-title {
   margin: 0;
-  width: 70%;
+  width: 80%;
+  font-size: 20px;
 }
 
 .movie-rating {
@@ -49,21 +52,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .movie-vote.red {
-  border-color: #E90000;
+  border-color: #e90000;
 }
 
 .movie-vote.orange {
-  border-color: #E97E00;
+  border-color: #e97e00;
 }
 
 .movie-vote.yellow {
-  border-color: #E9D100;
+  border-color: #e9d100;
 }
 
 .movie-vote.green {
-  border-color: #66E900;
+  border-color: #66e900;
+}
+
+.movie-genres {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.genres {
+  border: 1px solid #D9D9D9;
+  background-color: #FAFAFA;
+  padding: 0 3px;
+  border-radius: 5px;
+  text-align: center;
+}
+.movie-release-date {
+  color: #827E7E;
 }
