@@ -4,12 +4,9 @@ import { format } from 'date-fns';
 import { Component } from 'react';
 
 import ApiService from '../../services/ApiService';
+import { GenresConsumer } from '../../context/GenresContext';
 
 export default class MovieCard extends Component {
-  state = {
-    genres: [],
-  };
-
   api = new ApiService();
 
   addPoster = () => {
@@ -53,63 +50,78 @@ export default class MovieCard extends Component {
     return <div className={voteClass}>{vote.toFixed(1)}</div>;
   };
 
-  addGenres = async (id) => {
-    const details = await this.api.getMovieDetails(id);
-    const genres = details.genres.map((genre) => genre.name);
+  // onRate = async (rate) => {
 
-    this.setState({ genres });
-  };
+  //   const apiKey = localStorage.getItem('guestID')
 
-  componentDidMount() {
-    this.addGenres(this.props.id);
-  }
+  //   const newRate = await this.api.postRate(rate, this.props.id, apiKey)
+
+  //   if (newRate.success) {
+  //     this.setState({rate})
+  //   }
+
+  //   console.log(this.props.rating, this.state.rate);
+
+  // }
 
   render() {
-    const { id, title } = this.props;
+    const { id, title, movieGenres, addRating, guestID, userRating } = this.props;
 
     return (
-      <li id={id} className="card-item">
-        <ConfigProvider
-          theme={{
-            components: {
-              Card: {
-                bodyPaddingSM: 0,
-              },
-            },
-          }}
-        >
-          <Card style={{ width: 450, height: 280, borderRadius: 0 }} size="small" hoverable>
-            <div className="movie-card-content">
-              <img src={this.addPoster()} alt={`${title} Poster`} className="movie-poster" />
-              <div className="movie-details">
-                <h3 className="movie-title">{title}</h3>
-                {this.addVote()}
-                <div className="movie-release-date">{this.formatDate()}</div>
-                <div className="movie-genres">
-                  {this.state.genres.map((genre) => (
-                    <span className="genres" key={`genre-${genre}`}>
-                      {' '}
-                      {genre}{' '}
-                    </span>
-                  ))}
+      <GenresConsumer>
+        {(genres) => (
+          <li id={id} className="card-item">
+            <ConfigProvider
+              theme={{
+                components: {
+                  Card: {
+                    bodyPaddingSM: 0,
+                  },
+                },
+              }}
+            >
+              <Card style={{ width: 450, height: 280, borderRadius: 0 }} size="small" hoverable>
+                <div className="movie-card-content">
+                  <img src={this.addPoster()} alt={`${title} Poster`} className="movie-poster" />
+                  <div className="movie-details">
+                    <h3 className="movie-title">{title}</h3>
+                    {this.addVote()}
+                    <div className="movie-release-date">{this.formatDate()}</div>
+                    <ul className="movie-genres">
+                      {movieGenres &&
+                        movieGenres.map((genreId, idx) => (
+                          <li key={idx} className="movie-genre">
+                            <span>{genres && genres.find(({ id }) => id === genreId).name}</span>
+                          </li>
+                        ))}
+                    </ul>
+                    <div className="movie-overview">{this.shortenOverview()}</div>
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Rate: {
+                            starSize: 15,
+                          },
+                        },
+                      }}
+                    >
+                      <Rate
+                        allowHalf
+                        defaultValue={userRating}
+                        count={10}
+                        className="movie-rating"
+                        onChange={async (value) => {
+                          await addRating(id, guestID, value);
+                        }}
+                      />
+                    </ConfigProvider>
+                  </div>
                 </div>
-                <div className="movie-overview">{this.shortenOverview()}</div>
-                <ConfigProvider
-                  theme={{
-                    components: {
-                      Rate: {
-                        starSize: 15,
-                      },
-                    },
-                  }}
-                >
-                  <Rate allowHalf count={10} className="movie-rating" />
-                </ConfigProvider>
-              </div>
-            </div>
-          </Card>
-        </ConfigProvider>
-      </li>
+              </Card>
+            </ConfigProvider>
+          </li>
+        )}
+      </GenresConsumer>
     );
   }
 }

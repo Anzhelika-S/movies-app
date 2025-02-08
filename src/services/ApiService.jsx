@@ -47,4 +47,94 @@ export default class ApiService {
 
     return await res.json();
   }
+
+  async getGuestSession() {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${this._apiToken}`,
+      },
+    };
+
+    const res = await fetch('https://api.themoviedb.org/3/authentication/guest_session/new', options);
+
+    if (!res.ok) {
+      throw new Error('Could not fetch');
+    }
+
+    return await res.json();
+  }
+
+  async addRating(id, apiKey, rate) {
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${this._apiToken}`,
+      },
+      body: JSON.stringify({ value: rate }),
+    };
+
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/rating?guest_session_id=${apiKey}`, options)
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+
+    return res;
+  }
+
+  async getRatedMovies(apiKey) {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${this._apiToken}`,
+      },
+    };
+
+    const res = await fetch(
+      `https://api.themoviedb.org/3/guest_session/${apiKey}/rated/movies?language=en-US&page=1&sort_by=created_at.asc`,
+      options
+    )
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+
+    return res;
+  }
+
+  async getRatedMoviesFromPage(guestID, page) {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${this._apiToken}`,
+      },
+    };
+
+    const res = await fetch(
+      `https://api.themoviedb.org/3/guest_session/${guestID}/rated/movies?language=en-US&page=${page}`,
+      options
+    )
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+
+    return res;
+  }
+
+  async getGenres() {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${this._apiToken}`,
+      },
+    };
+
+    const res = await fetch('https://api.themoviedb.org/3/genre/movie/list', options)
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+
+    return res;
+  }
 }

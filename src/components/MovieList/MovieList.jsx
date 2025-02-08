@@ -6,7 +6,7 @@ import MovieCard from '../MovieCard';
 
 export default class MovieList extends Component {
   render() {
-    const { movies, loading } = this.props;
+    const { movies, loading, error, addRating, guestID } = this.props;
 
     const elements =
       movies.length !== 0 ? (
@@ -19,9 +19,15 @@ export default class MovieList extends Component {
             overview={movie.overview}
             releaseDate={movie.release_date}
             vote={movie.vote_average}
-            // genres={movie.genres.map((genre) => genre.name)}
+            rating={movie.rating}
+            movieGenres={movie.genre_ids}
+            addRating={addRating}
+            guestID={guestID}
+            userRating={movie.rating}
           />
         ))
+      ) : error ? (
+        <Alert message="Couldn't fetch data" type="error" showIcon className="error-message" />
       ) : (
         <Alert
           type="info"

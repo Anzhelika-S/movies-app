@@ -75,15 +75,18 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 5px;
+
+  list-style: none;
+  padding-inline-start: 0;
 }
 
-.genres {
-  border: 1px solid #D9D9D9;
-  background-color: #FAFAFA;
+.movie-genre {
+  border: 1px solid #d9d9d9;
+  background-color: #fafafa;
   padding: 0 3px;
   border-radius: 5px;
   text-align: center;
 }
 .movie-release-date {
-  color: #827E7E;
+  color: #827e7e;
 }
