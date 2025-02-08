@@ -84,6 +84,12 @@ export default class App extends Component {
     try {
       const { success } = await this.api.addRating(movieID, guestID, value);
       if (success) {
+        this.setState((prevState) => ({
+          movies: prevState.movies.map((movie) => (movie.id === movieID ? { ...movie, rating: value } : movie)),
+          ratedMovies: prevState.ratedMovies
+            ? prevState.ratedMovies.map((movie) => (movie.id === movieID ? { ...movie, rating: value } : movie))
+            : null,
+        }));
         setTimeout(async () => await this.updateRatedList(), 1000);
       }
     } catch (err) {
@@ -151,7 +157,7 @@ export default class App extends Component {
           <GenresProvider value={genresContext}>
             {error && <Alert message="Couldn't fetch data" type="error" showIcon className="error-message" />}
             {totalRatedResults ? (
-              <MovieList movies={ratedMovies} loading={loading} />
+              <MovieList movies={ratedMovies} loading={loading} guestID={guestID} addRating={this.rateMovie} />
             ) : (
               <Alert type="info" message="No rated movies yet" />
             )}

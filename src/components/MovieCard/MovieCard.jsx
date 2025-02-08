@@ -3,12 +3,9 @@ import { Card, ConfigProvider, Rate } from 'antd';
 import { format } from 'date-fns';
 import { Component } from 'react';
 
-import ApiService from '../../services/ApiService';
 import { GenresConsumer } from '../../context/GenresContext';
 
 export default class MovieCard extends Component {
-  api = new ApiService();
-
   addPoster = () => {
     const { poster } = this.props;
     return poster ? `https://image.tmdb.org/t/p/w185/${poster}` : 'https://movienewsletters.net/photos/000000H1.jpg';
@@ -49,20 +46,6 @@ export default class MovieCard extends Component {
 
     return <div className={voteClass}>{vote.toFixed(1)}</div>;
   };
-
-  // onRate = async (rate) => {
-
-  //   const apiKey = localStorage.getItem('guestID')
-
-  //   const newRate = await this.api.postRate(rate, this.props.id, apiKey)
-
-  //   if (newRate.success) {
-  //     this.setState({rate})
-  //   }
-
-  //   console.log(this.props.rating, this.state.rate);
-
-  // }
 
   render() {
     const { id, title, movieGenres, addRating, guestID, userRating } = this.props;
